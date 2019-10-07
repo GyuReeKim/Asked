@@ -16,6 +16,7 @@
           <div class="alert alert-primary" role="alert">
             {{answer.content}}
             <a href="{% url 'questions:answer_delete' question.id answer.id %}" class="btn btn-danger">삭제</a>
+            <a href="{% url 'questions:answer_update' question.id answer.id %}" class="btn btn-warning">수정</a>
           </div>
         {% endfor %}
       {% else %}

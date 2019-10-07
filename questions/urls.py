@@ -12,4 +12,6 @@ urlpatterns = [
     path('<int:question_id>/answers/', views.answer_create, name="answer_create"),
     # Delete
     path('<int:question_id>/answers/<int:answer_id>/delete/', views.answer_delete, name="answer_delete"),
+    # Update
+    path('<int:question_id>/answers/<int:answer_id>/update/', views.answer_update, name="answer_update"),
 ]

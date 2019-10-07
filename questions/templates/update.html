@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <div class="container">
+    <div class="jumbotron">
+      <p class="lead">{{question.content}}</p>
+      <hr class="my-4">
+      <form action="{% url 'questions:answer_create' question.id %}" method="post">
+        {% csrf_token %}
+        <input class="form-control" type="text" name="content">
+        <input class="btn btn-primary" type="submit">
+      </form>
+
+      {% if question.answer_set.all %}
+        {% for answer in question.answer_set.all %}
+          {% if answer.id == answer_id %}
+            <div class="alert alert-primary" role="alert">
+              <form action="{% url 'questions:answer_update' question.id answer.id %}" method="post">
+                {% csrf_token %}
+                <input class="form-control" type="text" name="content" value="{{answer.content}}">
+                <input class="btn btn-primary" type="submit">
+              </form>
+            </div>
+          {% else %}
+            <div class="alert alert-primary" role="alert">
+              {{answer.content}}
+              <a href="{% url 'questions:answer_delete' question.id answer.id %}" class="btn btn-danger">삭제</a>
+              <a href="{% url 'questions:answer_update' question.id answer.id %}" class="btn btn-warning">수정</a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <div class="alert alert-danger" role="alert">
+          댓글이 없습니다.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
